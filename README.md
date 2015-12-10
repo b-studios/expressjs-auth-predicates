@@ -14,14 +14,15 @@ by chaining (for conjunction)
 the route will proceed to function `f` when both conditions `cond1` and 
 `cond2` succeed.
 
-For disjunction the combinator `either` can be used.
+For disjunction (multiple alternatives that may allow access) the combinator `either` can be used:
 
     app.get('/helloworld', assure.either(cond1, cond2), f)
 
 Here the route will proceed to function `f` if either `cond1` or
-`cond2` suceed.
+`cond2` suceed. It suffices that one of the functions returns
+`true`.
 
-By combining piping and `either` arbitrary conditions can be 
+By combining piping and `either`, arbitrary conditions can be 
 expressed in conjunctive normal form.
 
 
