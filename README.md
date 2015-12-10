@@ -2,9 +2,9 @@ Auth Predicates
 ===============
 
 This library offers a small "DSL" to articulate security conditions 
-in [express.js](http://expressjs.com) applications.
+in [express.js](http://expressjs.com) routes.
 
-It allows to express security conditions as functions
+It allows to express security conditions in routes as functions
 returning boolean values (is "allowed" vs. is "not allowed"). This very
 easy interface allows trivial composition of security conditions
 by chaining (for conjunction)
