@@ -22,21 +22,57 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/**
+ * A Request is an expressjs object as defined in:
+ *   http://expressjs.com/en/4x/api.html#req
+ */
+
+/**
+ * A Response is an expressjs object as defined in:
+ *   http://expressjs.com/en/4x/api.html#res
+ */
+
+/**
+ * A RoutingCallback is a a function: (Request, Response, () -> Unit?) -> Unit
+ *   Given request and response objects, the callback can trigger
+ *   further routing actions. More information can be found in
+ *   the expressjs guides.
+ */
+
+/**
+ * A RoutingPredicate is a function: (Request, Response) -> Boolean
+ *   Given the request and response objects as inputs it determines
+ *   whether routing should continue or not.
+ */
+
+/**
+ * RoutingPredicate -> RoutingCallback
+ */
 function assure(pred) {
   return function (req, res, next) {
     handle(pred(req, res), req, res, next);
   }
 }
 
-// fail and succeed can be overriden for customization
+// fail and succeed can be overridden for customization
+
+/**
+ * RoutingCallback
+ */
 assure.fail = function (req, res, next) {
   res.status(401).json({ message: 'unauthorized' });
 }
 
+/**
+ * RoutingCallback
+ */
 assure.succeed = function (req, res, next) {
   next();
 }
 
+/**
+ * RoutingPredicate* -> RoutingCallback
+ */
 assure.either = function() {
   var args = [].slice.apply(arguments);
 
@@ -49,6 +85,9 @@ assure.either = function() {
   }
 }
 
+/**
+ * (Boolean, Request, Response, () -> Unit) -> Unit
+ */
 function handle(pred, req, res, next) {
   if (pred) {
     assure.succeed(req, res, next);
