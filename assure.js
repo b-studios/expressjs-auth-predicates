@@ -24,7 +24,7 @@
 
 function assure(pred) {
   return function (req, res, next) {
-    handle(pred, req, res, next);
+    handle(pred(req, res), req, res, next);
   }
 }
 
